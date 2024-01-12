@@ -1,0 +1,18 @@
+{
+  "dependencies": {
+    "ds-test": "github:dapphub/ds-test",
+    "forge-std": "github:foundry-rs/forge-std"
+  },
+  "name": "ajnapoker",
+  "description": "A pool poking service for Ajna, powered by Gelato",
+  "version": "1.0.0",
+  "main": "",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "forge test"
+  },
+  "author": "",
+  "license": "ISC"
+}
