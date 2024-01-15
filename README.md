@@ -8,3 +8,4 @@ To use:
 
 The contract is licensed with MIT.
 Gelato `IOpsProxy` and Ajna `Pool` interfaces is licensed as MIT.
+`Maths` is a derivative work of Ajna Finance's `Maths` library which is licensed as GPL3.0 or later
