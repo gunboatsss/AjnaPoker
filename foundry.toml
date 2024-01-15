@@ -7,6 +7,8 @@ remappings = [
     "ds-test/=node_modules/ds-test/src/",
     "forge-std/=node_modules/forge-std/src/"
 ]
+evm_version = 'paris'
 viaIR = true
 verbosity = 3
+
 # See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options
