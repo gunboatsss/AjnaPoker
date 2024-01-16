@@ -19,24 +19,24 @@ contract AjnaPoker {
         if (debt_ == 0) {
             return (false, "unused pool");
         }
-        (uint256 debtColEma_, uint256 lupt0DebtEma_, uint256 debtEma_, uint256 depositEma_) = pool.emasInfo();
-        if (depositEma_ == 0) {
-            return (false, "depositEma_ is 0");
-        }
-        int256 mau = int256(Maths.wdiv(debtEma_, depositEma_));
-        int256 mau102 = mau * 1.02e18 / 1e18;
+        // (uint256 debtColEma_, uint256 lupt0DebtEma_, uint256 debtEma_, uint256 depositEma_) = pool.emasInfo();
+        // if (depositEma_ == 0) {
+        //     return (false, "depositEma_ is 0");
+        // }
+        // int256 mau = int256(Maths.wdiv(debtEma_, depositEma_));
+        // int256 mau102 = mau * 1.02e18 / 1e18;
 
-        int256 tu = (lupt0DebtEma_ != 0) ? int256(Maths.wdiv(debtColEma_, lupt0DebtEma_)) : int256(1e18);
-        if (
-            // check if interest rate is changing
-            !
-            (
-                (4 * (tu - mau102) < (((tu + mau102 - 1e18) / 1e9) ** 2) - 1e18)
-                    || (4 * (tu - mau) > 1e18 - ((tu + mau - 1e18) / 1e9) ** 2)
-            )
-        ) {
-            return (false, "interest rate not changing");
-        }
+        // int256 tu = (lupt0DebtEma_ != 0) ? int256(Maths.wdiv(debtColEma_, lupt0DebtEma_)) : int256(1e18);
+        // if (
+        //     // check if interest rate is changing
+        //     !
+        //     (
+        //         (4 * (tu - mau102) < (((tu + mau102 - 1e18) / 1e9) ** 2) - 1e18)
+        //             || (4 * (tu - mau) > 1e18 - ((tu + mau - 1e18) / 1e9) ** 2)
+        //     )
+        // ) {
+        //     return (false, "interest rate not changing");
+        // }
         (, uint256 inflatorUpdate) = pool.inflatorInfo();
         if (block.timestamp > inflatorUpdate + 12 hours) {
             return (true, abi.encodeCall(pool.updateInterest, ()));
@@ -85,24 +85,24 @@ contract AjnaPoker {
             if (debt_ == 0) {
                 continue;
             }
-            (uint256 debtColEma_, uint256 lupt0DebtEma_, uint256 debtEma_, uint256 depositEma_) = IPool(pool).emasInfo();
-            if (depositEma_ == 0) {
-                continue;
-            }
-            int256 mau = int256(Maths.wdiv(debtEma_, depositEma_));
-            int256 mau102 = mau * 1.02e18 / 1e18;
+            // (uint256 debtColEma_, uint256 lupt0DebtEma_, uint256 debtEma_, uint256 depositEma_) = IPool(pool).emasInfo();
+            // if (depositEma_ == 0) {
+            //     continue;
+            // }
+            // int256 mau = int256(Maths.wdiv(debtEma_, depositEma_));
+            // int256 mau102 = mau * 1.02e18 / 1e18;
 
-            int256 tu = (lupt0DebtEma_ != 0) ? int256(Maths.wdiv(debtColEma_, lupt0DebtEma_)) : int256(1e18);
-            if (
-                // check if interest rate is changing
-                !
-                (
-                    (4 * (tu - mau102) < (((tu + mau102 - 1e18) / 1e9) ** 2) - 1e18)
-                        || (4 * (tu - mau) > 1e18 - ((tu + mau - 1e18) / 1e9) ** 2)
-                )
-            ) {
-                continue;
-            }
+            // int256 tu = (lupt0DebtEma_ != 0) ? int256(Maths.wdiv(debtColEma_, lupt0DebtEma_)) : int256(1e18);
+            // if (
+            //     // check if interest rate is changing
+            //     !
+            //     (
+            //         (4 * (tu - mau102) < (((tu + mau102 - 1e18) / 1e9) ** 2) - 1e18)
+            //             || (4 * (tu - mau) > 1e18 - ((tu + mau - 1e18) / 1e9) ** 2)
+            //     )
+            // ) {
+            //     continue;
+            // }
             (, uint256 inflatorUpdate) = IPool(pool).inflatorInfo();
             if (block.timestamp > inflatorUpdate + 12 hours) {
                 targets[counts] = _pools[i];

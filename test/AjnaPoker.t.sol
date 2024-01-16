@@ -37,30 +37,30 @@ contract AjnaPokerTest is Test {
         (bool succ,) = address(pool).call(data);
         assertTrue(succ, "fail to update");
     }
-    function test_checker_decrease() public {
-        console2.log("time before", block.timestamp);
-        pool.setDebt_(1e18);
-        pool.updateInterest();
-        vm.warp(block.timestamp + 14 hours);
-        console2.log("time after", block.timestamp);
-        pool.setEMA(1e18, 2e18, 0.9e18, 1e18);
-        (bool shouldExec, bytes memory data) = poker.checker(address(pool));
-        assertTrue(shouldExec, "fail to check");
-        assertEq(data, abi.encodeWithSelector(IPoolLenderActions.updateInterest.selector));
-        (bool succ,) = address(pool).call(data);
-        assertTrue(succ, "fail to update");
-    }
+    // function test_checker_decrease() public {
+    //     console2.log("time before", block.timestamp);
+    //     pool.setDebt_(1e18);
+    //     pool.updateInterest();
+    //     vm.warp(block.timestamp + 14 hours);
+    //     console2.log("time after", block.timestamp);
+    //     pool.setEMA(1e18, 2e18, 0.9e18, 1e18);
+    //     (bool shouldExec, bytes memory data) = poker.checker(address(pool));
+    //     assertTrue(shouldExec, "fail to check");
+    //     assertEq(data, abi.encodeWithSelector(IPoolLenderActions.updateInterest.selector));
+    //     (bool succ,) = address(pool).call(data);
+    //     assertTrue(succ, "fail to update");
+    // }
 
-    function test_checker_no_change() public {
-        console2.log("time before", block.timestamp);
-        pool.setDebt_(1e18);
-        pool.updateInterest();
-        vm.warp(block.timestamp + 14 hours);
-        console2.log("time after", block.timestamp);
-        pool.setEMA(0.5e18, 1e18, 0.5e18, 1e18);
-        (bool shouldExec, ) = poker.checker(address(pool));
-        assertFalse(shouldExec, "shouldn't execute (interest rate doesn't change)");
-    }
+    // function test_checker_no_change() public {
+    //     console2.log("time before", block.timestamp);
+    //     pool.setDebt_(1e18);
+    //     pool.updateInterest();
+    //     vm.warp(block.timestamp + 14 hours);
+    //     console2.log("time after", block.timestamp);
+    //     pool.setEMA(0.5e18, 1e18, 0.5e18, 1e18);
+    //     (bool shouldExec, ) = poker.checker(address(pool));
+    //     assertFalse(shouldExec, "shouldn't execute (interest rate doesn't change)");
+    // }
 
     function test_checkers_not_12_hours() public {
         pool.setDebt_(1e18);
@@ -147,8 +147,7 @@ contract AjnaPokerTest is Test {
 
     function test_array_no_pool() public {
         pool2.updateInterest();
-        pool2.setDebt_(1e18);
-        pool2.setEMA(0.5e18, 1e18, 0.5e18, 1e18);
+        // pool2.setEMA(0.5e18, 1e18, 0.5e18, 1e18);
         vm.warp(block.timestamp + 7 hours);
         pool.updateInterest();
         pool3.updateInterest();
